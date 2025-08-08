@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "synerise-expo",
+    "name": "Synerise",
     "slug": "synerise-expo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -20,10 +20,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.synerise.expo",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": ["./plugins/synerise/withSynerise", "expo-dev-client"]
   }
 }
