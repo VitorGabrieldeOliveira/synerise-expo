@@ -27,6 +27,19 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["./plugins/synerise/withSynerise", "expo-dev-client"]
+    "plugins": [
+      "./plugins/synerise/withSynerise",
+      "expo-dev-client",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableProguardInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true,
+            "extraProguardRules": "-keep class com.synerise.sdk.react.BuildConfig { *; }\n-dontwarn com.synerise.sdk.react.BuildConfig"
+          }
+        }
+      ]
+    ]
   }
 }
