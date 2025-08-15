@@ -11,6 +11,31 @@ const {
 const { dependencies } = require("../../../package.json");
 const { PACKAGE_NAME } = require("../constants");
 
+const withMavenPackage = (config) => {
+  return withProjectBuildGradle(config, (conf) => {
+    let results;
+
+    try {
+      results = mergeContents({
+        tag: "react-native-synerise-sdk:maven-package",
+        src: conf.modResults.contents,
+        newSrc: `    maven { url 'https://pkgs.dev.azure.com/Synerise/AndroidSDK/_packaging/prod/maven/v1' }`,
+        anchor: /www.jitpack.io/,
+        offset: 1,
+        comment: "    //",
+      });
+    } catch {
+      throw new Error(
+        "Cannot add react-native-synerise-sdk to the project's android/app/build.gradle because it's malformed."
+      );
+    }
+
+    conf.modResults.contents = results.contents;
+
+    return conf;
+  });
+};
+
 const withPackagingOptions = (config) => {
   return withAppBuildGradle(config, (conf) => {
     let results;
@@ -63,31 +88,6 @@ const withGradleDependency = (config) => {
   });
 };
 
-const withMavenPackage = (config) => {
-  return withProjectBuildGradle(config, (conf) => {
-    let results;
-
-    try {
-      results = mergeContents({
-        tag: "react-native-synerise-sdk",
-        src: conf.modResults.contents,
-        newSrc: `    maven { url 'https://pkgs.dev.azure.com/Synerise/AndroidSDK/_packaging/prod/maven/v1' }`,
-        anchor: /www.jitpack.io/,
-        offset: 1,
-        comment: "    //",
-      });
-    } catch {
-      throw new Error(
-        "Cannot add react-native-synerise-sdk to the project's android/app/build.gradle because it's malformed."
-      );
-    }
-
-    conf.modResults.contents = results.contents;
-
-    return conf;
-  });
-};
-
 const withMainApplicationPackage = (config) => {
   return withMainApplication(config, (conf) => {
     let results;
@@ -120,8 +120,8 @@ const withMainApplicationPackage = (config) => {
 };
 
 module.exports = {
-  withGradleDependency,
-  withPackagingOptions,
   withMavenPackage,
+  withPackagingOptions,
+  withGradleDependency,
   withMainApplicationPackage,
 };

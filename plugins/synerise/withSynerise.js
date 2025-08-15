@@ -3,9 +3,9 @@ const { createRunOncePlugin, withPlugins } = require("@expo/config-plugins");
 const { dependencies } = require("../../package.json");
 
 const {
-  withGradleDependency,
-  withPackagingOptions,
   withMavenPackage,
+  withPackagingOptions,
+  withGradleDependency,
   withMainApplicationPackage,
 } = require("./android");
 const { withCocoaPodsDependency } = require("./ios");
@@ -14,9 +14,9 @@ const { PACKAGE_NAME } = require("./constants");
 const withSynerise = (config) => {
   return withPlugins(config, [
     //Android
+    withMavenPackage,
     withPackagingOptions,
     withGradleDependency,
-    withMavenPackage,
     withMainApplicationPackage,
 
     // iOS
