@@ -36,7 +36,7 @@
           "android": {
             "enableProguardInReleaseBuilds": true,
             "enableShrinkResourcesInReleaseBuilds": true,
-            "extraProguardRules": "-keep class com.synerise.sdk.react.BuildConfig { *; }\n-dontwarn com.synerise.sdk.react.BuildConfig"
+            "extraProguardRules": "-keep class com.synerise.sdk.** { *; }\n-keepclassmembers class com.synerise.sdk.** { *; }\n-keepclassmembers class com.synerise.sdk.** {\n    public <init>();\n}\n-dontwarn com.synerise.sdk.react.BuildConfig"
           }
         }
       ]
